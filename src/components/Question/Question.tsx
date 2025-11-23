@@ -40,7 +40,7 @@ const Question = ({ question }: QuestionProps) => {
           Difficulty: {question.difficulty}
         </Typography>
         <AuthorMeta>
-          <PersonIcon/>
+          <PersonIcon />
           <Typography variant="body1">{question.author}</Typography>
         </AuthorMeta>
       </QuestionMetadata>

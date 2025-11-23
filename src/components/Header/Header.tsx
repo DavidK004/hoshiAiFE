@@ -7,11 +7,16 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "../../components/shared/Container";
-import StarIcon from '@mui/icons-material/Star';
+import StarIcon from "@mui/icons-material/Star";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
+import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -24,11 +29,13 @@ function Header() {
     setAnchorElNav(null);
   };
 
+  const goToAdmin = () => navigate("/admin");
+
   return (
-    <AppBar sx={{backgroundColor: "#4b2981"}} position="static">
+    <AppBar sx={{ backgroundColor: "#4b2981" }} position="static">
       <Container>
         <Toolbar disableGutters>
-           <StarIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <StarIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -61,28 +68,47 @@ function Header() {
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
+              anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
               keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
+              transformOrigin={{ vertical: "top", horizontal: "left" }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{ display: { xs: "block", md: "none" } }}
             >
-              <MenuItem onClick={handleCloseNavMenu} component="a" href="/categories">
-                <Typography textAlign="center">Categories</Typography>
-              </MenuItem>
-              <MenuItem onClick={handleCloseNavMenu} component="a" href="/profile">
-                <Typography textAlign="center">Profile</Typography>
-              </MenuItem>
-              <MenuItem onClick={handleCloseNavMenu} component="a" href="/create">
-                <Typography textAlign="center">Create</Typography>
-              </MenuItem>
+              {!user && (
+                <MenuItem
+                  onClick={() => {
+                    handleCloseNavMenu();
+                    navigate("/login");
+                  }}
+                >
+                  <Typography textAlign="center">Login</Typography>
+                </MenuItem>
+              )}
+              {user && (
+                <span>
+                  <MenuItem
+                    onClick={() => {
+                      handleCloseNavMenu();
+                      navigate("/profile");
+                    }}
+                  >
+                    <Typography textAlign="center">Profile</Typography>
+                  </MenuItem>
+                  {user.type === "admin" && (
+                    <MenuItem
+                      onClick={() => {
+                        handleCloseNavMenu();
+                        goToAdmin();
+                      }}
+                    >
+                      <Typography textAlign="center">
+                        Admin Dashboard
+                      </Typography>
+                    </MenuItem>
+                  )}
+                </span>
+              )}
             </Menu>
           </Box>
 
@@ -91,7 +117,7 @@ function Header() {
             variant="h5"
             noWrap
             component="a"
-            href="#home"
+            href="/"
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -107,15 +133,33 @@ function Header() {
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            <Button href="/categories" sx={{ my: 2, color: "white", display: "block" }}>
-              Categories
-            </Button>
-            <Button href="/profile" sx={{ my: 2, color: "white", display: "block" }}>
-              Profile
-            </Button>
-            <Button href="/create" sx={{ my: 2, color: "white", display: "block" }}>
-              Create
-            </Button>
+            {!user && (
+              <Button
+                onClick={() => navigate("/login")}
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                Login
+              </Button>
+            )}
+
+            {user && (
+              <>
+                <Button
+                  onClick={() => navigate("/profile")}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  Profile
+                </Button>
+                {user.type === "admin" && (
+                  <Button
+                    onClick={goToAdmin}
+                    sx={{ my: 2, color: "white", display: "block" }}
+                  >
+                    Admin Dashboard
+                  </Button>
+                )}
+              </>
+            )}
           </Box>
         </Toolbar>
       </Container>
