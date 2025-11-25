@@ -22,3 +22,14 @@ export interface LoginPayload {
 export interface MeResponse {
   user: User;
 }
+
+export interface RegistrationPayload {
+  username: string;
+  email: string;
+  password: string;
+  password_confirmation: string;
+}
+
+export interface RegistrationResponse {
+  message: string;
+}

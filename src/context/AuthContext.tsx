@@ -2,12 +2,17 @@ import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useCurrentUser } from "../hooks/useCurrentUser";
 import { useLogin } from "../hooks/useLogin";
-import type { LoginPayload, User } from "../components/shared/types/AuthTypes";
-import { createContext, useContext, type ReactNode } from "react";
+import type {
+  LoginPayload,
+  LoginResponse,
+  User,
+} from "../components/shared/types/AuthTypes";
+import { createContext, useContext } from "react";
+import type { OnlyChildrenProps } from "../components/shared/types/OnlyChildrenProps";
 
 interface AuthContextType {
   user: User | null;
-  login: (data: LoginPayload) => Promise<void>;
+  login: (data: LoginPayload) => Promise<LoginResponse>;
   logout: () => void;
   isLoading: boolean;
 }
@@ -20,23 +25,10 @@ export const useAuth = () => {
   return context;
 };
 
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
+export const AuthProvider = ({ children }: OnlyChildrenProps) => {
   const queryClient = useQueryClient();
   const { data: user, isLoading } = useCurrentUser();
   const loginMutation = useLogin();
-
-  const login = async (payload: LoginPayload) => {
-    await loginMutation.mutateAsync(payload, {
-      onSuccess: (data) => {
-        localStorage.setItem("access_token", data.access_token);
-        queryClient.setQueryData(["me"], data.user);
-        toast.success(`Welcome ${data.user.username}`);
-      },
-      onError: (err: any) => {
-        toast.error(err.response?.data?.message || "Login failed");
-      },
-    });
-  };
 
   const logout = () => {
     localStorage.removeItem("access_token");
@@ -47,7 +39,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user: user ?? null, login, logout, isLoading }}
+      value={{
+        user: user ?? null,
+        login: loginMutation.mutateAsync,
+        logout,
+        isLoading,
+      }}
     >
       {children}
     </AuthContext.Provider>

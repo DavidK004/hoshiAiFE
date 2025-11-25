@@ -4,6 +4,8 @@ import IndexPage from "../pages/IndexPage/IndexPage";
 import LoginPage from "../pages/LoginPage/LoginPage";
 import ProfilePage from "../pages/ProfilePage/Profilepage";
 import { ProtectedRoute } from "../components/ProtectedRoute/ProtectedRoute";
+import RegistrationPage from "../pages/RegistrationPage/RegistrationPage";
+import ActivateAccountPage from "../pages/ActivateAccountPage/ActivateAccountPage";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +27,14 @@ const router = createBrowserRouter([
             <ProfilePage />
           </ProtectedRoute>
         ),
+      },
+      {
+        path: "/register",
+        element: <RegistrationPage />,
+      },
+      {
+        path: "/auth/email-activation/:token",
+        element: <ActivateAccountPage />,
       },
     ],
   },
