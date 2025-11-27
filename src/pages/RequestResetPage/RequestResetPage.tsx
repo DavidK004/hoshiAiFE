@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
-import { useAuth } from "../../context/AuthContext";
-import Container from "../../components/shared/Container";
 import { Box, Button, TextField, Typography } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
-import { RegisterLink } from "./LoginPage.styles";
+import Container from "../../components/shared/Container";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import { useEffect, useState } from "react";
+import { useRequestPasswordReset } from "../../hooks/useRequestPasswordReset";
 
-const LoginPage = () => {
-  const { login, user } = useAuth();
+const RequestResetPage = () => {
+  const { user } = useAuth();
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const requestPasswordReset = useRequestPasswordReset();
 
   useEffect(() => {
     if (user) {
@@ -19,14 +19,18 @@ const LoginPage = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await login({ email, password });
+    requestPasswordReset.mutate(email, {
+      onSuccess: () => {
+        setEmail("");
+      },
+    });
   };
 
   return (
     <Container>
       <Box sx={{ padding: 4, maxWidth: 360, margin: "auto" }}>
         <Typography variant="h4" mb={3} textAlign="center">
-          Login
+          Request Password Reset
         </Typography>
         <form onSubmit={handleSubmit}>
           <TextField
@@ -38,16 +42,7 @@ const LoginPage = () => {
             margin="normal"
             required
           />
-          <TextField
-            label="Password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            fullWidth
-            margin="normal"
-            required
-          />
-          <Link to="/reset-password">Forgot Password?</Link>
+
           <Button
             type="submit"
             variant="contained"
@@ -55,17 +50,12 @@ const LoginPage = () => {
             fullWidth
             sx={{ mt: "10px" }}
           >
-            Login
+            Send
           </Button>
         </form>
-      </Box>
-      <Box sx={{ display: "flex", alignItems: "center" }}>
-        <RegisterLink to={"/register"}>
-          Don't have and account? Register now!
-        </RegisterLink>
       </Box>
     </Container>
   );
 };
 
-export default LoginPage;
+export default RequestResetPage;

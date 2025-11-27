@@ -33,3 +33,9 @@ export interface RegistrationPayload {
 export interface RegistrationResponse {
   message: string;
 }
+
+export interface ResetPasswordPayload {
+  token: string;
+  password: string;
+  password_confirmation: string;
+}

@@ -6,6 +6,9 @@ import ProfilePage from "../pages/ProfilePage/Profilepage";
 import { ProtectedRoute } from "../components/ProtectedRoute/ProtectedRoute";
 import RegistrationPage from "../pages/RegistrationPage/RegistrationPage";
 import ActivateAccountPage from "../pages/ActivateAccountPage/ActivateAccountPage";
+import RequestResetPage from "../pages/RequestResetPage/RequestResetPage";
+import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
+import ResetPasswordPage from "../pages/ResetPasswordPage/ResetPasswordPage";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +38,18 @@ const router = createBrowserRouter([
       {
         path: "/auth/email-activation/:token",
         element: <ActivateAccountPage />,
+      },
+      {
+        path: "/reset-password",
+        element: <RequestResetPage />,
+      },
+      {
+        path: "/auth/reset-password/:token",
+        element: <ResetPasswordPage />,
+      },
+      {
+        path: "*",
+        element: <NotFoundPage />,
       },
     ],
   },
