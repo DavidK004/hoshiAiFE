@@ -1,13 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { loginRequest } from "../api/authApi";
+import { loginRequest } from "../../api/authApi";
 import { toast } from "react-toastify";
-import type { LoginPayload } from "../components/shared/types/AuthTypes";
 
 export const useLogin = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (payload: LoginPayload) => loginRequest(payload),
+    mutationFn: loginRequest,
 
     onSuccess: (data) => {
       localStorage.setItem("access_token", data.access_token);

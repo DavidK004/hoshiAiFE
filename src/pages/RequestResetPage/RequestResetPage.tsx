@@ -3,7 +3,7 @@ import Container from "../../components/shared/Container";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useEffect, useState } from "react";
-import { useRequestPasswordReset } from "../../hooks/useRequestPasswordReset";
+import { useRequestPasswordReset } from "../../hooks/auth/useRequestPasswordReset";
 
 const RequestResetPage = () => {
   const { user } = useAuth();

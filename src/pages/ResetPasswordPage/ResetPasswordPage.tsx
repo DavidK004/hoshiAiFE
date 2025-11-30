@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { toast } from "react-toastify";
-import { useResetPassword } from "../../hooks/useResetPassword";
+import { useResetPassword } from "../../hooks/auth/useResetPassword";
 import Container from "../../components/shared/Container";
 import { Box, Button, TextField, Typography } from "@mui/material";
 

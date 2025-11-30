@@ -1,18 +1,20 @@
-import { Typography } from "@mui/material";
+import { Typography, Pagination } from "@mui/material";
+import { useState } from "react";
 import Container from "../../components/shared/Container";
-import { WelcomeContainer } from "./IndexPage.styles";
+import {  WelcomeContainer } from "./IndexPage.styles";
 import StartTestForm from "../../components/StartTestForm/StartTestForm";
 import Question from "../../components/Question/Question";
+import { useQuestions } from "../../hooks/Question/useQuestions";
+import type { QuestionType } from "../../components/shared/types/QuestionTypes";
 
 const IndexPage = () => {
+  const [page, setPage] = useState(1);
+  const questionsQuery = useQuestions({ page });
 
-const myQuestion = {
-  title: "Example Question",
-  category: "Math",
-  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ultricies, urna eu aliquet tincidunt, augue turpis gravida risus, sit amet posuere neque tellus sit amet justo. Curabitur non facilisis orci, vitae eleifend est. Cras fermentum, velit at scelerisque varius, mauris justo cursus lacus, ac porttitor ante metus sit amet nibh. Vivamus imperdiet, diam vel efficitur euismod, urna odio pharetra ipsum, vitae sollicitudin neque enim ut tortor. Donec gravida orci.",
-  difficulty: 3,
-  author: "David"
-};
+  const questions = questionsQuery.data?.data ?? [];
+  const loading = questionsQuery.isLoading;
+  const error = questionsQuery.error?.message ?? null;
+  const meta = questionsQuery.data?.meta ?? null;
 
 
   return (
@@ -21,9 +23,30 @@ const myQuestion = {
         <Typography variant="h2">Welcome To HoshiAI!</Typography>
         <Typography variant="subtitle1">The best place to learn!</Typography>
       </WelcomeContainer>
+
       <StartTestForm />
-      <Typography sx={{mb:"36px"}} variant="h3">Browse Questions</Typography>
-      <Question question={myQuestion} />
+
+      <Typography sx={{ mb: "36px" }} variant="h3">
+        Browse Questions
+      </Typography>
+
+      {loading && <Typography>Loading questions...</Typography>}
+      {error && <Typography color="error">{error}</Typography>}
+
+      {questions.map((q: QuestionType) => (
+        <Question key={q.id} question={q} />
+      ))}
+
+      {meta && meta.last_page > 1 && (
+        <Pagination
+          count={meta.last_page}
+          page={page}
+          onChange={(_, value) => setPage(value)}
+          color="primary"
+          shape="rounded"
+          sx={{ mt: 3, mb: 3, display: "flex", justifyContent: "center" }}
+        />
+      )}
     </Container>
   );
 };

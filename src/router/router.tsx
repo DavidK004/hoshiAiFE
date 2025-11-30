@@ -9,6 +9,8 @@ import ActivateAccountPage from "../pages/ActivateAccountPage/ActivateAccountPag
 import RequestResetPage from "../pages/RequestResetPage/RequestResetPage";
 import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
 import ResetPasswordPage from "../pages/ResetPasswordPage/ResetPasswordPage";
+import SingleQuestionPage from "../pages/SingleQuestionPage/SingleQuestionPage";
+import { TestPage } from "../pages/TestPage/TestPage";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +48,14 @@ const router = createBrowserRouter([
       {
         path: "/auth/reset-password/:token",
         element: <ResetPasswordPage />,
+      },
+      {
+        path: "/questions/:id",
+        element: <SingleQuestionPage/>
+      },
+      {
+        path: "/tests/:id",
+        element: <TestPage/>
       },
       {
         path: "*",

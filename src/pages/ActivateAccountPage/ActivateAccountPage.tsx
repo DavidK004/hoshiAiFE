@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useActivateAccount } from "../../hooks/useActivateAccount";
+import { useActivateAccount } from "../../hooks/auth/useActivateAccount";
 import { CircularProgress, Box, Typography } from "@mui/material";
 
 const ActivateAccountPage = () => {

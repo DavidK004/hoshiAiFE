@@ -1,12 +1,12 @@
 import { useMutation } from "@tanstack/react-query";
-import { activateAccount } from "../api/authApi";
+import { activateAccount } from "../../api/authApi";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 export const useActivateAccount = () => {
   const navigate = useNavigate();
   return useMutation({
-    mutationFn: (token: string) => activateAccount(token),
+    mutationFn: activateAccount,
     onSuccess: (data) => {
       toast.success(data.message);
       navigate("/login");

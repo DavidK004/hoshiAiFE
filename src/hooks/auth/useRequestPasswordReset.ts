@@ -1,10 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
-import { requestPasswordReset } from "../api/authApi";
+import { requestPasswordReset } from "../../api/authApi";
 import { toast } from "react-toastify";
 
 export const useRequestPasswordReset = () => {
   return useMutation({
-    mutationFn: (email: string) => requestPasswordReset(email),
+    mutationFn: requestPasswordReset,
     onSuccess: (data) => {
       toast.success(data.message);
     },

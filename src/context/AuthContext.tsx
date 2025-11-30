@@ -1,7 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import { useCurrentUser } from "../hooks/useCurrentUser";
-import { useLogin } from "../hooks/useLogin";
+import { useCurrentUser } from "../hooks/auth/useCurrentUser";
+import { useLogin } from "../hooks/auth/useLogin";
 import type {
   LoginPayload,
   LoginResponse,

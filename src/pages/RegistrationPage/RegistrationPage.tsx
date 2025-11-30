@@ -3,7 +3,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import Container from "../../components/shared/Container";
 import { Box, Button, TextField, Typography } from "@mui/material";
-import { useRegistration } from "../../hooks/useRegistration";
+import { useRegistration } from "../../hooks/auth/useRegistration";
 import { toast } from "react-toastify";
 
 const RegistrationPage = () => {

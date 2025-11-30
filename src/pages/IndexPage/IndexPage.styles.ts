@@ -7,11 +7,15 @@ export const WelcomeContainer = styled("div")({
   justifyContent: "center",
   alignItems: "center",
   padding: "10px",
-  marginBottom: "36px"
+  marginBottom: "36px",
 });
 
 export const ButtonGroup = styled("div")({
   display: "flex",
+  marginTop: 20,
+  alignItems: "center",
+  justifyContent: "center",
+  gap: 10
 });
 
 export const IndexWrapper = styled("div")({
