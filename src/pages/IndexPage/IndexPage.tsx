@@ -34,7 +34,7 @@ const IndexPage = () => {
       {error && <Typography color="error">{error}</Typography>}
 
       {questions.map((q: QuestionType) => (
-        <Question key={q.id} question={q} />
+        <Question key={q.id} question={q}/>
       ))}
 
       {meta && meta.last_page > 1 && (

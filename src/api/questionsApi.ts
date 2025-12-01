@@ -1,7 +1,5 @@
 import axiosInstance from "./axiosInstance";
 
-
-
 type GetQuestionsParams = {
   page?: number;
   id?: number;

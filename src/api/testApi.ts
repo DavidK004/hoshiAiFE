@@ -28,8 +28,8 @@ export const getUserTestById = async (userTestId: number) => {
 };
 
 export const getUserTests = async () => {
-  const res = await axiosInstance.get<UserTestType[]>("/api/user-tests/me");
-  return res.data;
+  const res = await axiosInstance.get<{data: UserTestType[]}>("/api/user-tests/me");
+  return res.data.data;
 };
 
 export const submitAnswer = async (data: SubmitAnswerPayload) => {
