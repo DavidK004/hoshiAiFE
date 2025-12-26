@@ -75,6 +75,7 @@ const StartTestForm = () => {
       <FormControl sx={{ minWidth: "300px" }} variant="filled">
         <InputLabel id="category-select-label">Category</InputLabel>
         <Select
+          sx={{ maxWidth: "270px" }}
           labelId="category-select-label"
           id="category-select"
           value={category}
@@ -93,6 +94,7 @@ const StartTestForm = () => {
       <FormControl sx={{ minWidth: "200px" }} variant="filled">
         <InputLabel id="min-difficulty-select-label">Min Difficulty</InputLabel>
         <Select
+          sx={{ maxWidth: "270px" }}
           labelId="min-difficulty-select-label"
           id="min-difficulty-select"
           value={minDifficulty}
@@ -110,6 +112,7 @@ const StartTestForm = () => {
       <FormControl sx={{ minWidth: "200px" }} variant="filled">
         <InputLabel id="max-difficulty-select-label">Max Difficulty</InputLabel>
         <Select
+          sx={{ maxWidth: "270px" }}
           labelId="max-difficulty-select-label"
           id="max-difficulty-select"
           value={maxDifficulty}

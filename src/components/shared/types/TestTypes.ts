@@ -33,7 +33,7 @@ export type TestType = {
   description: string | null;
   category_id: number;
   category: CategoryType;
-  questions: QuestionType[];
+  questions?: QuestionType[];
   is_available: boolean;
   author_id: number;
   author: User;
@@ -60,4 +60,29 @@ export type UserTestType = {
 export type SubmitAnswerPayload = {
   answerId: number;
   answer: (string | number)[];
+};
+
+export type PaginatedTests = {
+  data: TestType[];
+  links: {
+    first: string | null;
+    last: string | null;
+    prev: string | null;
+    next: string | null;
+  };
+  meta: {
+    current_page: number;
+    from: number | null;
+    last_page: number;
+    links: {
+      url: string | null;
+      label: string;
+      page: number | null;
+      active: boolean;
+    }[];
+    path: string;
+    per_page: number;
+    to: number | null;
+    total: number;
+  };
 };

@@ -109,6 +109,15 @@ function Header() {
                   )}
                 </span>
               )}
+
+              <MenuItem
+                onClick={() => {
+                  handleCloseNavMenu();
+                  navigate("/tests");
+                }}
+              >
+                <Typography textAlign="center">Tests</Typography>
+              </MenuItem>
             </Menu>
           </Box>
 
@@ -160,6 +169,15 @@ function Header() {
                 )}
               </>
             )}
+            <Button
+            sx={{ my: 2, color: "white", display: "block" }}
+              onClick={() => {
+                handleCloseNavMenu();
+                navigate("/tests");
+              }}
+            >
+              <Typography textAlign="center">Tests</Typography>
+            </Button>
           </Box>
         </Toolbar>
       </Container>

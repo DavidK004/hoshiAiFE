@@ -2,13 +2,19 @@ import { Box, Button, Chip, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { formatDate } from "../../utils/functions";
 import type { UserTestType } from "../shared/types/TestTypes";
+import { useGetTestById } from "../../hooks/Tests/useGetTestById";
 
 interface TestCardProps {
   test: UserTestType;
 }
 
 const TestCard = ({ test }: TestCardProps) => {
-  const title = test.test?.title || "User Test";
+  let title: string | undefined = "User Test";
+
+  if (test.test_id) {
+    const { data } = useGetTestById(test.test_id);
+    title = data?.title;
+  }
 
   let statusLabel = "";
   let statusColor: "primary" | "success" | "error" = "primary";

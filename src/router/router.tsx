@@ -11,6 +11,7 @@ import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
 import ResetPasswordPage from "../pages/ResetPasswordPage/ResetPasswordPage";
 import SingleQuestionPage from "../pages/SingleQuestionPage/SingleQuestionPage";
 import { TestPage } from "../pages/TestPage/TestPage";
+import TestsPage from "../pages/TestsPage/TestsPage";
 
 const router = createBrowserRouter([
   {
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
       {
         path: "/tests/:id",
         element: <TestPage/>
+      },
+      {
+        path: "/tests",
+        element: <TestsPage/>
       },
       {
         path: "*",
