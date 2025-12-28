@@ -29,7 +29,7 @@ function Header() {
     setAnchorElNav(null);
   };
 
-  const goToAdmin = () => navigate("/admin");
+  const goToDashboard = () => navigate("/dashboard");
 
   return (
     <AppBar sx={{ backgroundColor: "#4b2981" }} position="static">
@@ -99,11 +99,11 @@ function Header() {
                     <MenuItem
                       onClick={() => {
                         handleCloseNavMenu();
-                        goToAdmin();
+                        goToDashboard();
                       }}
                     >
                       <Typography textAlign="center">
-                        Admin Dashboard
+                        Dashboard
                       </Typography>
                     </MenuItem>
                   )}
@@ -161,10 +161,10 @@ function Header() {
                 </Button>
                 {user.type === "admin" && (
                   <Button
-                    onClick={goToAdmin}
+                    onClick={goToDashboard}
                     sx={{ my: 2, color: "white", display: "block" }}
                   >
-                    Admin Dashboard
+                    Dashboard
                   </Button>
                 )}
               </>
@@ -176,7 +176,7 @@ function Header() {
                 navigate("/tests");
               }}
             >
-              <Typography textAlign="center">Tests</Typography>
+            Tests
             </Button>
           </Box>
         </Toolbar>
