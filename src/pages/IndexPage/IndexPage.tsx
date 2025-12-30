@@ -15,7 +15,7 @@ import Question from "../../components/Question/Question";
 import { useQuestions } from "../../hooks/Question/useQuestions";
 import type { QuestionType } from "../../components/shared/types/QuestionTypes";
 import { useAuth } from "../../context/AuthContext";
-import { useCategories } from "../../hooks/Question/useCategories";
+import { useCategories } from "../../hooks/categories/useCategories";
 
 const IndexPage = () => {
   const [page, setPage] = useState(1);

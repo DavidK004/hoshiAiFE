@@ -16,6 +16,10 @@ import AdminLayout from "../layouts/AdminLayout/AdminLayout";
 import Container from "../components/shared/Container";
 import UsersPage from "../pages/UsersPage/UsersPage";
 import UserForm from "../pages/UserForm/UserForm";
+import CategoriesPage from "../pages/CategoriesPage/CategoriesPage";
+import CategoryForm from "../pages/CategoryForm/CategoryForm";
+import LogsPage from "../pages/LogsPage/LogsPage";
+import HitCountsPage from "../pages/HitcountsPage/HitcountsPage";
 
 const router = createBrowserRouter([
   {
@@ -92,8 +96,16 @@ const router = createBrowserRouter([
       { path: "questions", element: <Container>questions</Container> },
       { path: "tests", element: <Container>tests</Container> },
       { path: "user-tests", element: <Container>User Tests</Container> },
-      { path: "categories", element: <Container>categories</Container> },
-      { path: "logs", element: <Container>logs</Container> },
+      {
+        path: "categories",
+        children: [
+          { index: true, element: <CategoriesPage /> },
+          { path: "create", element: <CategoryForm /> },
+          { path: ":id/update", element: <CategoryForm /> },
+        ],
+      },
+      { path: "logs", element: <LogsPage /> },
+      {path: "hitcounts", element: <HitCountsPage/>}
     ],
   },
 ]);

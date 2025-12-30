@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { StartTestWrapper } from "./StartTestForm.styles";
 import { useState } from "react";
-import { useCategories } from "../../hooks/Question/useCategories";
+import { useCategories } from "../../hooks/categories/useCategories";
 import type { Category } from "../shared/types/QuestionTypes";
 import { useStartTest } from "../../hooks/Tests/useStartTest";
 import { toast } from "react-toastify";

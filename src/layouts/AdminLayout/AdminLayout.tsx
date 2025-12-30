@@ -3,6 +3,7 @@ import { AdminSidebar } from "../../components/AdminSidebar/AdminSidebar";
 import { LayoutWrapper } from "../MainLayout/Layout.styles";
 import Header from "../../components/Header/Header";
 import { StyledDistance } from "../../components/shared/StyledDistance";
+import Cholecounter from "../../components/Cholecounter/Cholecounter";
 
 const AdminLayout = () => {
   return (
@@ -10,6 +11,7 @@ const AdminLayout = () => {
       <Header />
       <StyledDistance />
       <AdminSidebar />
+      <Cholecounter/>
       <Outlet />
     </LayoutWrapper>
   );

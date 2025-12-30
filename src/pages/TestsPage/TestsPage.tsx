@@ -14,7 +14,7 @@ import {
   Typography,
   type SelectChangeEvent,
 } from "@mui/material";
-import { useCategories } from "../../hooks/Question/useCategories";
+import { useCategories } from "../../hooks/categories/useCategories";
 
 const TestsPage = () => {
   const [currentPage, setCurrentPage] = useState(1);

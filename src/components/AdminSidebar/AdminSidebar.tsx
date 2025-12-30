@@ -13,6 +13,7 @@ import QuizIcon from "@mui/icons-material/Quiz";
 import CategoryIcon from "@mui/icons-material/Category";
 import ArticleIcon from "@mui/icons-material/Article";
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
+import FmdBadIcon from '@mui/icons-material/FmdBad';
 
 const drawerWidth = 240;
 
@@ -35,12 +36,17 @@ const menuItems = [
   {
     label: "User Tests",
     icon: <AssignmentIndIcon />,
-    to: "/dashboard/userTests",
+    to: "/dashboard/user-tests",
   },
   {
     label: "Categories",
     icon: <CategoryIcon />,
     to: "/dashboard/categories",
+  },
+    {
+    label: "Hitcounts",
+    icon: <FmdBadIcon />,
+    to: "/dashboard/hitcounts",
   },
   {
     label: "Logs",
