@@ -7,6 +7,30 @@ import {
 } from "../components/shared/types/TestTypes";
 import axiosInstance from "./axiosInstance";
 
+export type UserTestsResponse = {
+  data: UserTestType[];
+  links: {
+    first: string;
+    last: string;
+    prev: string | null;
+    next: string | null;
+  };
+  meta: {
+    current_page: number;
+    from: number | null;
+    last_page: number;
+    path: string;
+    per_page: number;
+    to: number | null;
+    total: number;
+    links: {
+      url: string | null;
+      label: string;
+      active: boolean;
+    }[];
+  };
+};
+
 export const startTest = async (data: StartTestPayload) => {
   const res = await axiosInstance.post<{ data: UserTestType }>(
     "/api/user-tests",
@@ -63,4 +87,20 @@ export const getTests = async (categoryId?: number, page = 1) => {
 export const getTestById = async (id: number) => {
   const res = await axiosInstance.get<{ data: TestType }>(`/api/tests/${id}`);
   return res.data.data;
+};
+
+export const getAllUserTests = async (
+  page = 1,
+  test_id?: number,
+  question_id?: number
+) => {
+  const res = await axiosInstance.get<UserTestsResponse>("/api/user-tests", {
+    params: { page, test_id, question_id },
+  });
+  return res.data;
+};
+
+export const deleteUserTest = async (id: number) => {
+  const res = await axiosInstance.delete(`/api/user-tests/${id}`);
+  return res.data;
 };

@@ -8,9 +8,12 @@ import { useSubmitAnswer } from "../../hooks/Tests/useSubmitAnswer";
 import { useCompleteTest } from "../../hooks/Tests/useCompleteTest";
 import LearningAnswers from "../../components/Answers/Answers";
 import { formatDate } from "../../utils/functions";
+import NotFoundPage from "../NotFoundPage/NotFoundPage";
+import { useAuth } from "../../context/AuthContext";
 
 export const TestPage = () => {
   const { id } = useParams();
+  const { user } = useAuth();
   const { data: test, isLoading, error } = useUserTestById(Number(id));
   const [currentQuestion, setCurrentQuestion] = useState(1);
   const submitAnswerMutation = useSubmitAnswer();
@@ -30,25 +33,11 @@ export const TestPage = () => {
       </Container>
     );
 
-  if (error)
-    return (
-      <Container>
-        <Typography variant="h6" color="error">
-          Oops! An error occurred: {error.message}
-        </Typography>
-      </Container>
-    );
+  if (error) return <NotFoundPage />;
 
-  if (!test)
-    return (
-      <Container>
-        <Typography variant="h6" color="textSecondary">
-          No test found.
-        </Typography>
-      </Container>
-    );
+  if (!test) return <NotFoundPage />;
 
-  if (!test.is_available && !test.is_completed)
+  if (!test.is_available && !test.is_completed && user?.type == 'user')
     return (
       <Container>
         <Typography variant="h6" color="textSecondary">

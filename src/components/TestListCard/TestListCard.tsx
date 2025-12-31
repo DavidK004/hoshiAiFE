@@ -1,7 +1,8 @@
-import { Box, Button, Chip, Typography } from "@mui/material";
+import { Box, Button, Chip, Tooltip, Typography } from "@mui/material";
 import CategoryIcon from "@mui/icons-material/Category";
 import type { TestType } from "../shared/types/TestTypes";
 import { useStartTestById } from "../../hooks/Tests/useStartTestById";
+import { useNavigate } from "react-router-dom";
 
 interface TestCardProps {
   test: TestType;
@@ -9,6 +10,8 @@ interface TestCardProps {
 
 const TestListCard = ({ test }: TestCardProps) => {
   const { mutate: startTest } = useStartTestById();
+  const navigate = useNavigate();
+
   const title = test.title;
 
   let statusLabel = "";
@@ -33,21 +36,36 @@ const TestListCard = ({ test }: TestCardProps) => {
         justifyContent: "space-between",
         alignItems: "center",
         flexDirection: {
-            xs: "column",
-            sm: "column",
-            md: "row"
+          xs: "column",
+          sm: "column",
+          md: "row",
         },
       }}
     >
       <Box>
-        <Box sx={{display: "flex", gap: 1, flexDirection: {xs: "column", sm: "row"}}}>
-        <Typography variant="h6">{title}</Typography>
-                <Chip
-          icon={<CategoryIcon />}
-          label={test.category.name}
-          color="primary"
-          variant="outlined"
-        />
+        <Box
+          sx={{
+            display: "flex",
+            gap: 1,
+            flexDirection: { xs: "column", sm: "row" },
+          }}
+        >
+          <Tooltip title="View test details" placement="top" arrow>
+            <Typography
+              variant="h6"
+              color="primary"
+              sx={{ cursor: "pointer", color: "#000" }}
+              onClick={() => navigate(`/tests/view/${test.id}`)}
+            >
+              {title}
+            </Typography>
+          </Tooltip>
+          <Chip
+            icon={<CategoryIcon />}
+            label={test.category.name}
+            color="primary"
+            variant="outlined"
+          />
         </Box>
 
         {test.description && (
@@ -67,20 +85,17 @@ const TestListCard = ({ test }: TestCardProps) => {
       </Box>
 
       <Box sx={{ display: "flex", alignItems: "center", gap: 1, mt: 1 }}>
-
         <Chip label={statusLabel} color={statusColor} />
-              {test.is_available && (
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => startTest(test.id)}
-        >
-          Start Test
-        </Button>
-      )}
+        {test.is_available && (
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => startTest(test.id)}
+          >
+            Start Test
+          </Button>
+        )}
       </Box>
-
-
     </Box>
   );
 };

@@ -12,7 +12,6 @@ import { useUserById } from "../../hooks/users/useUserById";
 import { useCreateUser } from "../../hooks/users/useCreateUser";
 import { useUpdateUser } from "../../hooks/users/useUpdateUser";
 
-
 const UserForm = () => {
   const { id } = useParams<{ id: string }>();
   const isUpdate = Boolean(id);
@@ -46,8 +45,6 @@ const UserForm = () => {
     const payload = { username, email, type, ...(password && { password }) };
 
     if (isUpdate && id) {
-      console.log(payload);
-      console.log(id);
       updateUserMutation.mutate(
         { id: Number(id), payload },
         { onSuccess: () => navigate("/dashboard/users") }
@@ -103,6 +100,7 @@ const UserForm = () => {
           <MenuItem value="user">User</MenuItem>
           <MenuItem value="admin">Admin</MenuItem>
           <MenuItem value="creator">Creator</MenuItem>
+          <MenuItem value="banned">Banned</MenuItem>
         </TextField>
         <Button variant="contained" color="primary" type="submit">
           {isUpdate ? "Update" : "Create"}

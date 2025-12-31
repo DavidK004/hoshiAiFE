@@ -20,6 +20,8 @@ import CategoriesPage from "../pages/CategoriesPage/CategoriesPage";
 import CategoryForm from "../pages/CategoryForm/CategoryForm";
 import LogsPage from "../pages/LogsPage/LogsPage";
 import HitCountsPage from "../pages/HitcountsPage/HitcountsPage";
+import UserTestsPage from "../pages/AdminUserTestsPage/AdminUserTestsPage";
+import { SingleTestPage } from "../pages/SingleTestPage/SingleTestPage";
 
 const router = createBrowserRouter([
   {
@@ -70,6 +72,10 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+      {path: "/tests/view/:id",
+        element: <SingleTestPage/>
+      },
+
       {
         path: "/tests",
         element: <TestsPage />,
@@ -95,7 +101,7 @@ const router = createBrowserRouter([
       },
       { path: "questions", element: <Container>questions</Container> },
       { path: "tests", element: <Container>tests</Container> },
-      { path: "user-tests", element: <Container>User Tests</Container> },
+      { path: "user-tests", element:<UserTestsPage/> },
       {
         path: "categories",
         children: [

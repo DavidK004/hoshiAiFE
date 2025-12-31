@@ -75,9 +75,9 @@ const LearningAnswers = ({
             variant="contained"
             color="primary"
             sx={{ mt: 2 }}
-            onClick={() => setShowAnswer(true)}
+            onClick={() => setShowAnswer(!showAnswer)}
           >
-            Reveal Answer
+             {showAnswer ? "Hide Answer" : "Reveal Answer"}
           </Button>
         )}
       </Box>
