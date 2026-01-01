@@ -2,7 +2,7 @@ import { Box, Button, Chip, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { formatDate } from "../../utils/functions";
 import type { UserTestType } from "../shared/types/TestTypes";
-import { useGetTestById } from "../../hooks/Tests/useGetTestById";
+import { useGetTestById } from "../../hooks/tests/useGetTestById";
 
 interface TestCardProps {
   test: UserTestType;

@@ -13,7 +13,6 @@ import SingleQuestionPage from "../pages/SingleQuestionPage/SingleQuestionPage";
 import { TestPage } from "../pages/TestPage/TestPage";
 import TestsPage from "../pages/TestsPage/TestsPage";
 import AdminLayout from "../layouts/AdminLayout/AdminLayout";
-import Container from "../components/shared/Container";
 import UsersPage from "../pages/UsersPage/UsersPage";
 import UserForm from "../pages/UserForm/UserForm";
 import CategoriesPage from "../pages/CategoriesPage/CategoriesPage";
@@ -22,6 +21,10 @@ import LogsPage from "../pages/LogsPage/LogsPage";
 import HitCountsPage from "../pages/HitcountsPage/HitcountsPage";
 import UserTestsPage from "../pages/AdminUserTestsPage/AdminUserTestsPage";
 import { SingleTestPage } from "../pages/SingleTestPage/SingleTestPage";
+import AdminTestsPage from "../pages/AdminTestsPage/AdminTestsPage";
+import TestForm from "../pages/TestForm/TestForm";
+import QuestionsPage from "../pages/QuestionsPage/QuestionsPage";
+import QuestionForm from "../pages/QuestionForm/QuestionForm";
 
 const router = createBrowserRouter([
   {
@@ -72,9 +75,7 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
-      {path: "/tests/view/:id",
-        element: <SingleTestPage/>
-      },
+      { path: "/tests/view/:id", element: <SingleTestPage /> },
 
       {
         path: "/tests",
@@ -99,9 +100,23 @@ const router = createBrowserRouter([
           { path: ":id/update", element: <UserForm /> },
         ],
       },
-      { path: "questions", element: <Container>questions</Container> },
-      { path: "tests", element: <Container>tests</Container> },
-      { path: "user-tests", element:<UserTestsPage/> },
+      {
+        path: "questions",
+        children: [
+          { index: true, element: <QuestionsPage /> },
+          { path: "create", element: <QuestionForm /> },
+          { path: ":id/update", element: <QuestionForm /> },
+        ],
+      },
+      {
+        path: "tests",
+        children: [
+          { index: true, element: <AdminTestsPage /> },
+          { path: "create", element: <TestForm /> },
+          { path: ":id/update", element: <TestForm /> },
+        ],
+      },
+      { path: "user-tests", element: <UserTestsPage /> },
       {
         path: "categories",
         children: [
@@ -111,7 +126,7 @@ const router = createBrowserRouter([
         ],
       },
       { path: "logs", element: <LogsPage /> },
-      {path: "hitcounts", element: <HitCountsPage/>}
+      { path: "hitcounts", element: <HitCountsPage /> },
     ],
   },
 ]);

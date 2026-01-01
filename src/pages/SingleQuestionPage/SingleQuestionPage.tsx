@@ -1,6 +1,6 @@
 import { Container } from "@mui/material";
 import { useParams } from "react-router-dom";
-import { useQuestionById } from "../../hooks/Question/useQuestionById";
+import { useQuestionById } from "../../hooks/questions/useQuestionById";
 import Question from "../../components/Question/Question";
 import LearningAnswers from "../../components/Answers/Answers";
 

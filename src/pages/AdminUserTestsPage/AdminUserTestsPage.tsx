@@ -19,8 +19,8 @@ import {
 } from "@mui/material";
 
 import Container from "../../components/shared/Container";
-import { useGetAllUserTests } from "../../hooks/Tests/useGetAllUserTests";
-import { useDeleteUserTest } from "../../hooks/Tests/useDeteleUserTest";
+import { useGetAllUserTests } from "../../hooks/tests/useGetAllUserTests";
+import { useDeleteUserTest } from "../../hooks/tests/useDeteleUserTest";
 
 import UserTestRow from "../../components/UserTestRow/UserTestRow";
 

@@ -12,7 +12,7 @@ import Container from "../../components/shared/Container";
 import { WelcomeContainer } from "./IndexPage.styles";
 import StartTestForm from "../../components/StartTestForm/StartTestForm";
 import Question from "../../components/Question/Question";
-import { useQuestions } from "../../hooks/Question/useQuestions";
+import { useQuestions } from "../../hooks/questions/useQuestions";
 import type { QuestionType } from "../../components/shared/types/QuestionTypes";
 import { useAuth } from "../../context/AuthContext";
 import { useCategories } from "../../hooks/categories/useCategories";

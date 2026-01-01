@@ -1,11 +1,11 @@
 import { useParams } from "react-router-dom";
 import Container from "../../components/shared/Container";
-import { useUserTestById } from "../../hooks/Tests/useUserTestById";
+import { useUserTestById } from "../../hooks/tests/useUserTestById";
 import { useState } from "react";
 import { Box, Button, Pagination, Typography } from "@mui/material";
 import TestQuestion from "../../components/TestQuestion/TestQuestion";
-import { useSubmitAnswer } from "../../hooks/Tests/useSubmitAnswer";
-import { useCompleteTest } from "../../hooks/Tests/useCompleteTest";
+import { useSubmitAnswer } from "../../hooks/tests/useSubmitAnswer";
+import { useCompleteTest } from "../../hooks/tests/useCompleteTest";
 import LearningAnswers from "../../components/Answers/Answers";
 import { formatDate } from "../../utils/functions";
 import NotFoundPage from "../NotFoundPage/NotFoundPage";

@@ -31,6 +31,14 @@ export type UserTestsResponse = {
   };
 };
 
+export type TestPayload = {
+  title: string;
+  description: string;
+  closed_at: string | null;
+  category_id: number;
+  questions: number[];
+};
+
 export const startTest = async (data: StartTestPayload) => {
   const res = await axiosInstance.post<{ data: UserTestType }>(
     "/api/user-tests",
@@ -102,5 +110,20 @@ export const getAllUserTests = async (
 
 export const deleteUserTest = async (id: number) => {
   const res = await axiosInstance.delete(`/api/user-tests/${id}`);
+  return res.data;
+};
+
+export const createTest = async (payload: TestPayload) => {
+  const res = await axiosInstance.post("/api/tests", payload);
+  return res.data;
+};
+
+export const updateTest = async (id: number, payload: TestPayload) => {
+  const res = await axiosInstance.put(`/api/tests/${id}`, payload);
+  return res.data;
+};
+
+export const deleteTest = async (id: number) => {
+  const res = await axiosInstance.delete(`/api/tests/${id}`);
   return res.data;
 };

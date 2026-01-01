@@ -2,7 +2,7 @@ import { Box, Button, Tab, Tabs, Typography } from "@mui/material";
 import { useAuth } from "../../context/AuthContext";
 import Container from "../../components/shared/Container";
 import { useNavigate } from "react-router-dom";
-import { useGetUserTests } from "../../hooks/Tests/useGetUserTests";
+import { useGetUserTests } from "../../hooks/tests/useGetUserTests";
 import TestCard from "../../components/TestCard/TestCard";
 import { useState } from "react";
 

@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useGetTestById } from "../../hooks/Tests/useGetTestById";
+import { useGetTestById } from "../../hooks/tests/useGetTestById";
 import Container from "../../components/shared/Container";
 import {
   Box,
@@ -22,9 +22,9 @@ import LearningAnswers from "../../components/Answers/Answers";
 import NotFoundPage from "../NotFoundPage/NotFoundPage";
 import { useAuth } from "../../context/AuthContext";
 import { useState } from "react";
-import { useGetAllUserTests } from "../../hooks/Tests/useGetAllUserTests";
+import { useGetAllUserTests } from "../../hooks/tests/useGetAllUserTests";
 import UserTestRow from "../../components/UserTestRow/UserTestRow";
-import { useDeleteUserTest } from "../../hooks/Tests/useDeteleUserTest";
+import { useDeleteUserTest } from "../../hooks/tests/useDeteleUserTest";
 
 export const SingleTestPage = () => {
   const { id } = useParams();

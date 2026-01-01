@@ -1,7 +1,7 @@
 import { Box, Button, Chip, Tooltip, Typography } from "@mui/material";
 import CategoryIcon from "@mui/icons-material/Category";
 import type { TestType } from "../shared/types/TestTypes";
-import { useStartTestById } from "../../hooks/Tests/useStartTestById";
+import { useStartTestById } from "../../hooks/tests/useStartTestById";
 import { useNavigate } from "react-router-dom";
 
 interface TestCardProps {

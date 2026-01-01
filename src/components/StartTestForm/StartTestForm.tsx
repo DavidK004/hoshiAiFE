@@ -11,7 +11,7 @@ import { StartTestWrapper } from "./StartTestForm.styles";
 import { useState } from "react";
 import { useCategories } from "../../hooks/categories/useCategories";
 import type { Category } from "../shared/types/QuestionTypes";
-import { useStartTest } from "../../hooks/Tests/useStartTest";
+import { useStartTest } from "../../hooks/tests/useStartTest";
 import { toast } from "react-toastify";
 
 const StartTestForm = () => {

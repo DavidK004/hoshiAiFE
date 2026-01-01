@@ -1,7 +1,7 @@
 import { TableRow, TableCell, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import type { UserTestType } from "../../components/shared/types/TestTypes";
-import { useGetTestById } from "../../hooks/Tests/useGetTestById";
+import { useGetTestById } from "../../hooks/tests/useGetTestById";
 import { formatDate } from "../../utils/functions";
 
 type Props = {

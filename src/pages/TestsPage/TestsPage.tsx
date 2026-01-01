@@ -3,7 +3,7 @@ import Pagination from "@mui/material/Pagination";
 import CircularProgress from "@mui/material/CircularProgress";
 import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
-import { useGetTests } from "../../hooks/Tests/useGetTests";
+import { useGetTests } from "../../hooks/tests/useGetTests";
 import Container from "../../components/shared/Container";
 import TestListCard from "../../components/TestListCard/TestListCard";
 import {
