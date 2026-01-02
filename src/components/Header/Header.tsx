@@ -95,16 +95,14 @@ function Header() {
                   >
                     <Typography textAlign="center">Profile</Typography>
                   </MenuItem>
-                  {user.type === "admin" && (
+                  {(user.type === "admin" || user.type === "creator") && (
                     <MenuItem
                       onClick={() => {
                         handleCloseNavMenu();
                         goToDashboard();
                       }}
                     >
-                      <Typography textAlign="center">
-                        Dashboard
-                      </Typography>
+                      <Typography textAlign="center">Dashboard</Typography>
                     </MenuItem>
                   )}
                 </span>
@@ -159,7 +157,7 @@ function Header() {
                 >
                   Profile
                 </Button>
-                {user.type === "admin" && (
+                {(user.type === "admin" || user.type === "creator") && (
                   <Button
                     onClick={goToDashboard}
                     sx={{ my: 2, color: "white", display: "block" }}
@@ -170,13 +168,13 @@ function Header() {
               </>
             )}
             <Button
-            sx={{ my: 2, color: "white", display: "block" }}
+              sx={{ my: 2, color: "white", display: "block" }}
               onClick={() => {
                 handleCloseNavMenu();
                 navigate("/tests");
               }}
             >
-            Tests
+              Tests
             </Button>
           </Box>
         </Toolbar>

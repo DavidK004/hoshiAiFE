@@ -4,10 +4,6 @@ import Container from "../../components/shared/Container";
 import {
   Box,
   Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
   Pagination,
   Paper,
   Table,
@@ -24,24 +20,17 @@ import { useAuth } from "../../context/AuthContext";
 import { useState } from "react";
 import { useGetAllUserTests } from "../../hooks/tests/useGetAllUserTests";
 import UserTestRow from "../../components/UserTestRow/UserTestRow";
-import { useDeleteUserTest } from "../../hooks/tests/useDeteleUserTest";
+import TestQrModal from "../../components/TestQrModal/TestQrModal";
 
 export const SingleTestPage = () => {
   const { id } = useParams();
   const { user } = useAuth();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [deleteId, setDeleteId] = useState<number | null>(null);
-  const deleteMutation = useDeleteUserTest();
   const { data: tests } = useGetAllUserTests(currentPage, Number(id));
 
-  const handleDelete = () => {
-    if (deleteId !== null) {
-      deleteMutation.mutate(deleteId, {
-        onSuccess: () => setDeleteId(null),
-      });
-    }
-  };
+  const [qrOpen, setQrOpen] = useState(false);
+
 
   const { data: test } = useGetTestById(Number(id));
   if (!test) {
@@ -49,9 +38,15 @@ export const SingleTestPage = () => {
   }
   return (
     <Container>
-      <Typography variant="h2" sx={{ mb: 3 }}>
-        {test?.title}
-      </Typography>
+      <Box sx={{ display: "flex", justifyContent: "space-between", mb: 3 }}>
+        <Typography variant="h2">{test.title}</Typography>
+
+        {(user?.type === "admin" || user?.type === "creator") && (
+          <Button variant="outlined" onClick={() => setQrOpen(true)}>
+            Show QR
+          </Button>
+        )}
+      </Box>
 
       {test?.questions?.map((q) => (
         <Box key={q.id} sx={{ mb: 4 }}>
@@ -95,7 +90,7 @@ export const SingleTestPage = () => {
                     <UserTestRow
                       key={ut.id}
                       userTest={ut}
-                      onDelete={(id) => setDeleteId(id)}
+                      onDelete={() => {}}
                     />
                   ))
                 ) : (
@@ -124,24 +119,10 @@ export const SingleTestPage = () => {
               justifyContent: "center",
             }}
           />
-          <Dialog open={deleteId !== null} onClose={() => setDeleteId(null)}>
-            <DialogTitle>Confirm Delete</DialogTitle>
-            <DialogContent>
-              Are you sure you want to delete this user test?
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={() => setDeleteId(null)}>Cancel</Button>
-              <Button
-                color="error"
-                onClick={handleDelete}
-                disabled={deleteMutation.isPending}
-              >
-                Delete
-              </Button>
-            </DialogActions>
-          </Dialog>
+          
         </span>
       )}
+      <TestQrModal open={qrOpen} onClose={() => setQrOpen(false)} test={test} />
     </Container>
   );
 };

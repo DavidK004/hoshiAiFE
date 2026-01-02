@@ -44,7 +44,7 @@ const ProfilePage = () => {
             sx={{ marginLeft: "10px" }}
             variant="contained"
             color="secondary"
-            onClick={() => navigate("/admin")}
+            onClick={() => navigate("/dashboard")}
           >
             Admin Dashboard
           </Button>

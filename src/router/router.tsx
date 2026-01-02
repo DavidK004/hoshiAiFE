@@ -25,6 +25,7 @@ import AdminTestsPage from "../pages/AdminTestsPage/AdminTestsPage";
 import TestForm from "../pages/TestForm/TestForm";
 import QuestionsPage from "../pages/QuestionsPage/QuestionsPage";
 import QuestionForm from "../pages/QuestionForm/QuestionForm";
+import { AdminProtectedRoute } from "../components/ProtectedRoute/AdminProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -89,9 +90,13 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <AdminLayout />,
+    element: (
+      <AdminProtectedRoute>
+        <AdminLayout />
+      </AdminProtectedRoute>
+    ),
     children: [
-      { index: true, element: <UsersPage /> },
+      { index: true, element: <QuestionsPage /> },
       {
         path: "users",
         children: [

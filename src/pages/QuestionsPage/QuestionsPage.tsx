@@ -22,6 +22,7 @@ import { useDeleteQuestion } from "../../hooks/questions/useDeleteQuestion";
 import Container from "../../components/shared/Container";
 import { useNavigate } from "react-router-dom";
 import type { QuestionType } from "../../components/shared/types/QuestionTypes";
+import { useAuth } from "../../context/AuthContext";
 
 const QuestionsPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -29,6 +30,7 @@ const QuestionsPage = () => {
   const { data, isLoading, isError } = useQuestions({ page: currentPage });
   const deleteMutation = useDeleteQuestion();
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   const handleCreateQuestion = () => {
     navigate("/dashboard/questions/create");
@@ -111,14 +113,17 @@ const QuestionsPage = () => {
                   >
                     Update
                   </Button>
-                  <Button
-                    variant="outlined"
-                    color="error"
-                    size="small"
-                    onClick={() => setDeleteQuestionId(question.id)}
-                  >
-                    Delete
-                  </Button>
+                  {(user?.type === "admin" ||
+                    user?.id == question.author.id) && (
+                    <Button
+                      variant="outlined"
+                      color="error"
+                      size="small"
+                      onClick={() => setDeleteQuestionId(question.id)}
+                    >
+                      Delete
+                    </Button>
+                  )}
                 </TableCell>
               </TableRow>
             ))}

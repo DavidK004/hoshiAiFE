@@ -25,10 +25,12 @@ import type { TestType } from "../../components/shared/types/TestTypes";
 import { useGetTests } from "../../hooks/tests/useGetTests";
 import { useDeleteTest } from "../../hooks/tests/useDeleteTest";
 import { formatDate } from "../../utils/functions";
+import { useAuth } from "../../context/AuthContext";
 
 const AdminTestsPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [deleteTestId, setDeleteTestId] = useState<number | null>(null);
+  const { user } = useAuth();
 
   const { data, isLoading, isError } = useGetTests({ page: currentPage });
   const deleteMutation = useDeleteTest();
@@ -109,14 +111,16 @@ const AdminTestsPage = () => {
                   >
                     Update
                   </Button>
-                  <Button
-                    size="small"
-                    variant="outlined"
-                    color="error"
-                    onClick={() => setDeleteTestId(test.id)}
-                  >
-                    Delete
-                  </Button>
+                  {(user?.type === "admin" || user?.id == test.author_id) && (
+                    <Button
+                      size="small"
+                      variant="outlined"
+                      color="error"
+                      onClick={() => setDeleteTestId(test.id)}
+                    >
+                      Delete
+                    </Button>
+                  )}
                 </TableCell>
               </TableRow>
             ))}

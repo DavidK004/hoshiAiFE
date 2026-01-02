@@ -38,7 +38,13 @@ export const deleteUser = async (id: number) => {
 };
 
 export const createUser = async (payload: UserPayload) => {
-  const res = await axiosInstance.post<User>("/api/users", payload);
+  const res = await axiosInstance.post<User>("/api/users",{
+    username: payload.username,
+    email: payload.email,
+    email_verified_at: "2025-11-12T10:13:48.000000Z",
+    password: payload.password,
+    type: payload.type,
+  });
   return res.data;
 };
 

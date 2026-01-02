@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import type { UserTestType } from "../../components/shared/types/TestTypes";
 import { useGetTestById } from "../../hooks/tests/useGetTestById";
 import { formatDate } from "../../utils/functions";
+import { useAuth } from "../../context/AuthContext";
 
 type Props = {
   userTest: UserTestType;
@@ -11,6 +12,7 @@ type Props = {
 
 const UserTestRow = ({ userTest, onDelete }: Props) => {
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   const testId = userTest.test_id;
   let title = "User Test";
@@ -38,9 +40,7 @@ const UserTestRow = ({ userTest, onDelete }: Props) => {
 
       <TableCell>{userTest.is_completed ? "Yes" : "No"}</TableCell>
 
-      <TableCell>
-        {formatDate(userTest.created_at)}
-      </TableCell>
+      <TableCell>{formatDate(userTest.created_at)}</TableCell>
       <TableCell>{formatDate(userTest.closed_at)}</TableCell>
 
       <TableCell>
@@ -52,15 +52,16 @@ const UserTestRow = ({ userTest, onDelete }: Props) => {
         >
           View
         </Button>
-
-        <Button
-          size="small"
-          color="error"
-          variant="outlined"
-          onClick={() => onDelete(userTest.id)}
-        >
-          Delete
-        </Button>
+        {user?.type === "admin" && (
+          <Button
+            size="small"
+            color="error"
+            variant="outlined"
+            onClick={() => onDelete(userTest.id)}
+          >
+            Delete
+          </Button>
+        )}
       </TableCell>
     </TableRow>
   );
