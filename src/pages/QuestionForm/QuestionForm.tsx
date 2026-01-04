@@ -34,8 +34,10 @@ const QuestionForm = () => {
   const [type, setType] = useState<"single" | "multiple" | "text">("single");
   const [difficulty, setDifficulty] = useState(1);
   const [categoryId, setCategoryId] = useState<number | "">("");
+
   const [variants, setVariants] = useState<Variant[]>([{ id: 1, text: "" }]);
   const [correctAnswers, setCorrectAnswers] = useState<number[]>([]);
+
   const [textAnswer, setTextAnswer] = useState("");
   const [openAiModal, setOpenAiModal] = useState(false);
   const [generatedQuestion, setGeneratedQuestion] =
@@ -52,7 +54,6 @@ const QuestionForm = () => {
   useEffect(() => {
     if (question || generatedQuestion) {
       const q = question ?? generatedQuestion;
-      console.log(q);
       setTitle(q.title);
       setDescription(q.description ?? "");
       setType(q.type);
@@ -63,11 +64,7 @@ const QuestionForm = () => {
       } else {
         setVariants(q.variants.length ? q.variants : [{ id: 1, text: "" }]);
 
-        setCorrectAnswers(
-          q.correct_answers.map((i: number) =>
-            typeof i === "number" ? i - 1 : 0
-          )
-        );
+        setCorrectAnswers(q.correct_answers);
       }
     }
   }, [question, generatedQuestion]);
@@ -81,23 +78,30 @@ const QuestionForm = () => {
   };
 
   const addVariant = () => {
-    setVariants([...variants, { id: variants.length + 1, text: "" }]);
+    setVariants((prev) => [
+      ...prev,
+      {
+        id: Math.max(0, ...prev.map((v) => v.id)) + 1,
+        text: "",
+      },
+    ]);
   };
 
   const removeVariant = (index: number) => {
-    const newVariants = variants.filter((_, i) => i !== index);
-    setVariants(newVariants);
-    setCorrectAnswers((prev) => prev.filter((i) => i !== index));
+    const removedId = variants[index].id;
+
+    setVariants((prev) => prev.filter((_, i) => i !== index));
+    setCorrectAnswers((prev) => prev.filter((id) => id !== removedId));
   };
 
-  const toggleCorrectAnswer = (index: number) => {
+  const toggleCorrectAnswer = (variantId: number) => {
     if (type === "single") {
-      setCorrectAnswers([index]);
+      setCorrectAnswers([variantId]);
     } else {
       setCorrectAnswers((prev) =>
-        prev.includes(index)
-          ? prev.filter((i) => i !== index)
-          : [...prev, index]
+        prev.includes(variantId)
+          ? prev.filter((id) => id !== variantId)
+          : [...prev, variantId]
       );
     }
   };
@@ -126,8 +130,7 @@ const QuestionForm = () => {
       difficulty,
       category_id: Number(categoryId),
       variants: type === "text" ? [] : variants,
-      correct_answers:
-        type === "text" ? [textAnswer] : correctAnswers.map((i) => i + 1),
+      correct_answers: correctAnswers,
     };
 
     if (isUpdate && id) {
@@ -224,7 +227,7 @@ const QuestionForm = () => {
             </Typography>
             {variants.map((v, i) => (
               <Paper
-                key={i}
+                key={v.id}
                 sx={{
                   display: "flex",
                   alignItems: "center",
@@ -241,8 +244,8 @@ const QuestionForm = () => {
                 <FormControlLabel
                   control={
                     <Checkbox
-                      checked={correctAnswers.includes(i)}
-                      onChange={() => toggleCorrectAnswer(i)}
+                      checked={correctAnswers.includes(v.id)}
+                      onChange={() => toggleCorrectAnswer(v.id)}
                     />
                   }
                   label="Correct"
@@ -264,7 +267,6 @@ const QuestionForm = () => {
         </Button>
         {!isUpdate && (
           <Button
-
             variant="outlined"
             sx={{ ml: 2 }}
             onClick={() => setOpenAiModal(true)}

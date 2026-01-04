@@ -102,24 +102,27 @@ const AdminTestsPage = () => {
                   >
                     View
                   </Button>
-                  <Button
-                    size="small"
-                    variant="outlined"
-                    color="primary"
-                    onClick={() => handleUpdateTest(test.id)}
-                    sx={{ mr: 1 }}
-                  >
-                    Update
-                  </Button>
+
                   {(user?.type === "admin" || user?.id == test.author_id) && (
-                    <Button
-                      size="small"
-                      variant="outlined"
-                      color="error"
-                      onClick={() => setDeleteTestId(test.id)}
-                    >
-                      Delete
-                    </Button>
+                    <>
+                      <Button
+                        size="small"
+                        variant="outlined"
+                        color="primary"
+                        onClick={() => handleUpdateTest(test.id)}
+                        sx={{ mr: 1 }}
+                      >
+                        Update
+                      </Button>
+                      <Button
+                        size="small"
+                        variant="outlined"
+                        color="error"
+                        onClick={() => setDeleteTestId(test.id)}
+                      >
+                        Delete
+                      </Button>
+                    </>
                   )}
                 </TableCell>
               </TableRow>

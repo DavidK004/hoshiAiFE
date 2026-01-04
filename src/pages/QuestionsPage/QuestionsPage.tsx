@@ -104,25 +104,27 @@ const QuestionsPage = () => {
                     View
                   </Button>
 
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    size="small"
-                    onClick={() => handleUpdateQuestion(question.id)}
-                    sx={{ mr: 1 }}
-                  >
-                    Update
-                  </Button>
                   {(user?.type === "admin" ||
                     user?.id == question.author.id) && (
-                    <Button
-                      variant="outlined"
-                      color="error"
-                      size="small"
-                      onClick={() => setDeleteQuestionId(question.id)}
-                    >
-                      Delete
-                    </Button>
+                    <>
+                      <Button
+                        variant="outlined"
+                        color="primary"
+                        size="small"
+                        onClick={() => handleUpdateQuestion(question.id)}
+                        sx={{ mr: 1 }}
+                      >
+                        Update
+                      </Button>
+                      <Button
+                        variant="outlined"
+                        color="error"
+                        size="small"
+                        onClick={() => setDeleteQuestionId(question.id)}
+                      >
+                        Delete
+                      </Button>
+                    </>
                   )}
                 </TableCell>
               </TableRow>
