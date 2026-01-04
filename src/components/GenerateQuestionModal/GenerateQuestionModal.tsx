@@ -12,12 +12,12 @@ import {
 
 import { useOpenaiGenerateQuestion } from "../../hooks/questions/useOpenaiGenerateQuestion";
 import type { QuestionPayload } from "../../api/questionsApi";
+import { useCategories } from "../../hooks/categories/useCategories";
 
 type Props = {
   open: boolean;
   onClose: () => void;
   onGenerated: (question: QuestionPayload) => void;
-
 };
 
 const GenerateQuestionModal = ({ open, onClose, onGenerated }: Props) => {
@@ -28,6 +28,7 @@ const GenerateQuestionModal = ({ open, onClose, onGenerated }: Props) => {
   const [language, setLanguage] = useState<"en" | "sr" | "hu" | "ru">("en");
   const [difficulty, setDifficulty] = useState(5);
   const [prompt, setPrompt] = useState("");
+  const { data: categories } = useCategories();
 
   const handleGenerate = () => {
     if (!categoryId || !prompt.trim()) return;
@@ -69,14 +70,29 @@ const GenerateQuestionModal = ({ open, onClose, onGenerated }: Props) => {
           <MenuItem value="text">Text</MenuItem>
         </TextField>
 
-        <TextField
+        {/* <TextField
           label="Category ID"
           type="number"
           value={categoryId}
           onChange={(e) => setCategoryId(Number(e.target.value))}
           fullWidth
           sx={{ mb: 2 }}
-        />
+        /> */}
+        <TextField
+          select
+          label="Category"
+          value={categoryId}
+          onChange={(e) => setCategoryId(Number(e.target.value))}
+          fullWidth
+          required
+          sx={{ mb: 3 }}
+        >
+          {categories?.map((cat) => (
+            <MenuItem key={cat.id} value={cat.id}>
+              {cat.name}
+            </MenuItem>
+          ))}
+        </TextField>
 
         <TextField
           select

@@ -130,7 +130,7 @@ const QuestionForm = () => {
       difficulty,
       category_id: Number(categoryId),
       variants: type === "text" ? [] : variants,
-      correct_answers: correctAnswers,
+      correct_answers: type === "text" ? [textAnswer]: correctAnswers,
     };
 
     if (isUpdate && id) {
