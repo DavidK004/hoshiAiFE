@@ -89,7 +89,10 @@ The frontend communicates with a REST API that provides:
 
 1. Clone the repository
 
-
+```bash
+git clone <repo-url>
+cd <repo-name>
+```
 
 2. Install dependencies
 
