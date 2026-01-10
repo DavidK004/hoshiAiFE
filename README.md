@@ -1,73 +1,139 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Hoshi AI – Frontend
 
-Currently, two official plugins are available:
+Frontend application for the **Hoshi AI**, a web platform for creating, managing, and solving knowledge tests with support for AI-generated questions and answers.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This repository contains **only the frontend (client-side)** part of the project.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech Stack
 
-## Expanding the ESLint configuration
+- **React** (with TypeScript)
+- **Vite**
+- **Material UI (MUI)** – UI components and tables
+- **React Router**
+- **TanStack React Query**
+- **Axios**
+- **React QR Code**
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Features
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Public (Guest)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- View general information about the platform
+- View tests, questions and categories
+- Register an account
+
+### Registered User
+
+- Browse available tests
+- Solve tests by category and difficulty
+- View your test results and statistics
+- Review your correct/incorrect answers
+- View personal test history and progress
+
+### Question/Test Creator
+
+- Create tests manually
+- Add, update, and delete questions
+- Manage answers (text or multiple-choice)
+- Use **AI assistance** for generating questions
+- Generate **QR codes** for tests
+
+### Administrator
+
+- Manage users and creators
+- Enable/disable user accounts
+- Manage tests, questions, and categories
+- View system activity and statistics
+
+---
+
+## Responsive Design
+
+- Fully responsive UI
+- Optimized for desktop and mobile devices
+- Built using **Material UI** responsive components
+
+---
+
+## API Integration
+
+The frontend communicates with a REST API that provides:
+
+- JSON-based request/response format
+- CRUD operations for:
+  - Tests
+  - Questions
+  - Categories
+  - Users
+- Proper HTTP status codes and error handling
+- Swagger API documentation (backend)
+
+---
+
+
+
+## Installation & Running the Project
+
+### Prerequisites
+
+- Node.js (v18 or newer recommended)
+- npm
+- Running backend API (see backend repository)
+
+### Steps
+
+1. Clone the repository
+
+
+
+2. Install dependencies
+
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+3. Configure environment variables
+   Create an .env file in the project root
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+VITE_API_BASE_URL=BE_URL
+```
+
+
+4. Start the development server
+
+```bash
+npm run dev
+```
+
+
+5. Open the application
+   Vite will give the link to the locally ran app
+
+
+
+## Project Structure
+
+```text
+├── public/              # Static assets
+├── src/
+│   ├── api/              # API calls (Axios)
+│   ├── components/       # Reusable UI components
+│   ├── context/          # Global state (Auth, user)
+│   ├── hooks/            # Custom hooks & React Query
+│   ├── layouts/          # Page layouts
+│   ├── pages/            # Application pages
+│   ├── router/           # Route definitions
+│   ├── utils/            # Helper functions
+│   ├── App.tsx
+│   └── main.tsx
+├── package.json
+├── vite.config.ts
+└── README.md
 ```
