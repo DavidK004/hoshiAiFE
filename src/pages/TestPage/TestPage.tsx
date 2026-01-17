@@ -10,6 +10,7 @@ import LearningAnswers from "../../components/Answers/Answers";
 import { formatDate } from "../../utils/functions";
 import NotFoundPage from "../NotFoundPage/NotFoundPage";
 import { useAuth } from "../../context/AuthContext";
+import { useGetTestById } from "../../hooks/tests/useGetTestById";
 
 export const TestPage = () => {
   const { id } = useParams();
@@ -19,6 +20,7 @@ export const TestPage = () => {
   const submitAnswerMutation = useSubmitAnswer();
   const completeTestMutation = useCompleteTest();
   const allAnswered = test?.answers?.every((ans) => ans.answer !== null);
+  const { data: createdTest } = useGetTestById(test?.test_id ?? undefined);
 
   const handleCompleteTest = () => {
     if (test) completeTestMutation.mutate(test.id);
@@ -37,7 +39,7 @@ export const TestPage = () => {
 
   if (!test) return <NotFoundPage />;
 
-  if (!test.is_available && !test.is_completed && user?.type == 'user')
+  if (!test.is_available && !test.is_completed && user?.type == "user")
     return (
       <Container>
         <Typography variant="h6" color="textSecondary">
@@ -87,7 +89,9 @@ export const TestPage = () => {
           mb: 4,
         }}
       >
-        <Typography variant="h2">{test.test?.title ?? "User Test"}</Typography>
+        <Typography variant="h2">
+          {createdTest?.title ?? "User Test"}
+        </Typography>
         <Typography variant="subtitle1">
           Expires at: {test.closed_at ? formatDate(test.closed_at) : "N/A"}
         </Typography>
